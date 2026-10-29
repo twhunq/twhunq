@@ -31,13 +31,16 @@ jobs:
           USERNAME: ${{ github.repository_owner }}
 
       - name: Collect outputs
-        run: mv profile-3d-contrib dist/
+        run: |
+          mkdir out
+          cp dist/*.svg out/
+          cp -r profile-3d-contrib out/
 
       - name: Push to output branch
         uses: crazy-max/ghaction-github-pages@v5
         with:
           target_branch: output
-          build_dir: dist
+          build_dir: out
           commit_message: "chore: update profile animations"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
